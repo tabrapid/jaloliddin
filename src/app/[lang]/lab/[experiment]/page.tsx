@@ -40,7 +40,7 @@ export default async function ExperimentPage({ params }: PageProps<"/[lang]/lab/
 
   return (
     <>
-      <PageHeader label={`${dict.labPage.title} / ${experiment.topic}`} title={experiment.title(dict)} lead={experiment.summary(dict)} />
+      <PageHeader label={`${dict.labPage.title} / ${experiment.topic(dict)}`} title={experiment.title(dict)} lead={experiment.summary(dict)} />
       <Section spacing="tight">
         <Container className="flex flex-col gap-12">
           <View dict={dict} />

@@ -40,7 +40,7 @@ export default async function LabPage({ params }: PageProps<"/[lang]/lab">) {
                 <HoverSurface className="h-full rounded-lg">
                   <article className="relative flex h-full flex-col gap-6 rounded-lg border border-line bg-raised p-6 transition-colors group-hover/hover:border-line-strong sm:p-8">
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <span className="text-label text-ink-3">{String(index + 1).padStart(2, "0")} · {experiment.topic}</span>
+                      <span className="text-label text-ink-3">{String(index + 1).padStart(2, "0")} · {experiment.topic(dict)}</span>
                       <Badge tone="success" dot>
                         {dict.labPage.available}
                       </Badge>

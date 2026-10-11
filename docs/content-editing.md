@@ -66,7 +66,8 @@ Markdown body…
 - TypeScript requires `uz` to have every key in `en`. Tests also check placeholders such as
   `{count}` match.
 - Uzbek typography: use ʻ (U+02BB) in oʻ/gʻ and ʼ (U+02BC) for the tutuq belgisi. Both fonts
-  support them.
+  support them, and the display font is patched so ʻ sits tight against the letter. A test
+  checks this.
 - Content records carry their own `{ en, uz }` pairs.
 
 ## Add contact links

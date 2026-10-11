@@ -1,6 +1,6 @@
 # Progress
 
-Last updated: 2026-10-10.
+Last updated: 2026-10-11.
 
 ## Status: complete first release (local only, not deployed)
 
@@ -52,10 +52,29 @@ Last updated: 2026-10-10.
 - **`TextEntrance` renders text once** (no screen-reader duplicate), so copy/search/SEO get
   clean text.
 
+### Fixes after the recorded demo review (2026-10-11)
+
+Frame-by-frame review of the demo recordings found four real defects. Each now has a
+regression test, and each test was first confirmed to fail on the old build.
+
+- **Header blur missing in production.** Lightning CSS dropped the unprefixed
+  `backdrop-filter` when both prefixed and unprefixed declarations were written. Now only the
+  standard property is written and the prefix is generated.
+- **Client navigation landed mid-page** (e.g. 404 → “Back to home” stopped at y≈740). Next 16
+  no longer overrides `scroll-behavior: smooth` unless `<html data-scroll-behavior="smooth">`
+  is set; it is now set on every root layout.
+- **Uzbek ʻ rendered with a wide gap** (“G ʻoyalarni”). Schibsted Grotesk’s `uni02BB` glyph is
+  0.5 em wide. The self-hosted files now map U+02BB to the font’s `quoteleft` glyph
+  (`scripts/patch-uzbek-okina.py`). The text keeps the correct codepoint.
+- **English text on Uzbek pages.** The Lab topic is now localized, and the visualizer
+  caption uses the localized “Target value” label (low/mid/high remain code tokens).
+
+Demo media (videos, GIFs, gallery) is produced in `screenshots/demo/`, which is gitignored.
+
 ### Verification (this environment: Linux container, Node 22, headless Chromium 141 via Playwright 1.56)
 
 - `pnpm check` (typecheck, lint, 57 Vitest tests, production build): passing.
-- `pnpm test:e2e`: 60 passed, 8 skipped by design (each desktop-only or mobile-only check is skipped in the other project).
+- `pnpm test:e2e`: 66 passed, 8 skipped by design (each desktop-only or mobile-only check is skipped in the other project).
   Covers routes, internal-link crawl, 404s, explorer absent in production, SEO files, language
   switching and memory, Uzbek glyph coverage, skip link, mobile-menu focus trap, aria-current,
   touch targets, overflow, the Lab (play / keyboard / validation), reduced motion, WebGL init

@@ -58,7 +58,10 @@ pnpm check          # typecheck + lint + test + build
   (`bg-canvas`, `text-ink-2`, `border-line`, `bg-action`); never hex values in components.
   Small text never sits on `accent` (fails AA); filled buttons use `action`.
 - Two font families only: Schibsted Grotesk and Red Hat Mono (`text-label` for metadata).
-  Both support Uzbek ʻ/ʼ.
+  Both support Uzbek ʻ/ʼ. The Schibsted files are patched so ʻ (U+02BB) is not drawn as a wide
+  gap. Re-run `scripts/patch-uzbek-okina.py` if you replace a font file.
+- `<html>` carries `data-scroll-behavior="smooth"` so Next 16 disables smooth scrolling during
+  navigation. Keep it whenever `scroll-behavior: smooth` is set.
 - Editorial asymmetry on the 4/8/12 grid. Use cards sparingly and prefer hairlines. The
   khatam ornament appears only where it carries meaning.
 - Motion supports hierarchy. Large text uses the `settle` entrance (no fade, LCP-safe).

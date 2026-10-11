@@ -272,8 +272,9 @@
 
 @utility glass {
   background-color: color-mix(in oklab, var(--raised) 72%, transparent);
+  /* Only the standard property: Tailwind's Lightning CSS adds the -webkit-
+     prefix, and writing both made it drop the unprefixed one. */
   backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
 }
 
 /* Motion primitives ----------------------------------------------------------

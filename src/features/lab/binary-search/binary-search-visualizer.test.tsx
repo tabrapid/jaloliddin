@@ -66,7 +66,7 @@ describe("BinarySearchVisualizer", () => {
     await user.type(input, "42");
     expect(screen.queryByRole("alert")).toBeNull();
     expect(input).toHaveFocus();
-    expect(screen.getByText(/target =/)).toHaveTextContent("42");
+    expect(screen.getByText(/Sorted array · Target value:/)).toHaveTextContent("42");
   });
 
   it("plays automatically, can pause, and resets", async () => {

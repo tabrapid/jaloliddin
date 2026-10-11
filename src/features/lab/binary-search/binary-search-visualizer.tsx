@@ -154,7 +154,7 @@ function Player({ labels, trace }: PlayerProps) {
       >
         <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
           <p id={`${regionId}-label`} className="text-label text-ink-3">
-            {labels.arrayLabel} · target = <span className="text-accent-glow">{trace.target}</span>
+            {labels.arrayLabel} · {labels.targetLabel}: <span className="text-accent-glow">{trace.target}</span>
           </p>
           <p className="text-label text-ink-3" data-testid="step-counter">
             {format(labels.stepCounter, { current: state.index + 1, total: trace.steps.length })}

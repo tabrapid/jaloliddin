@@ -43,7 +43,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={localeMeta[lang].htmlLang} className={fontVariables}>
+    <html lang={localeMeta[lang].htmlLang} className={fontVariables} data-scroll-behavior="smooth">
       <body id="top" className="flex min-h-dvh flex-col bg-canvas text-ink">
         <SkipLink label={dict.a11y.skipToContent} />
         <MotionProvider>

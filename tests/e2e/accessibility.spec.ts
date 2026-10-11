@@ -56,3 +56,29 @@ test("pages have no horizontal overflow", async ({ page }) => {
     expect(overflow, path).toBeLessThanOrEqual(0);
   }
 });
+
+test("the glass header actually blurs what scrolls beneath it", async ({ page }) => {
+  await page.goto("/en");
+  const filter = await page.locator("header.glass").evaluate((node) => getComputedStyle(node).backdropFilter);
+  expect(filter).toContain("blur");
+});
+
+test("client-side navigation lands at the top of the new page", async ({ page }) => {
+  const scrollY = () => page.evaluate(() => window.scrollY);
+
+  await page.goto("/en/this-page-does-not-exist");
+  await page.getByRole("link", { name: "Back to home" }).click();
+  await expect(page).toHaveURL(/\/en$/);
+  await expect.poll(scrollY, { timeout: 4000 }).toBe(0);
+  await page.waitForTimeout(800);
+  expect(await scrollY()).toBe(0); // and it stays there
+
+  await page.goto("/en/work/bloodchain");
+  // Jump (not smooth-scroll) to the end so the test controls the starting point.
+  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
+  await page.getByRole("link", { name: /School platform/ }).last().click();
+  await expect(page).toHaveURL(/\/en\/work\/school-platform$/);
+  await expect.poll(scrollY, { timeout: 4000 }).toBe(0);
+  await page.waitForTimeout(800);
+  expect(await scrollY()).toBe(0);
+});

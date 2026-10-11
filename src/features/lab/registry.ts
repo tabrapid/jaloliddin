@@ -7,8 +7,8 @@ import type { Dictionary } from "@/i18n/dictionaries/en";
  */
 export interface Experiment {
   slug: string;
-  /** Short technical tag, locale-neutral. */
-  topic: string;
+  /** Short technical tag, e.g. "Algorithms · O(log n)". */
+  topic: (dict: Dictionary) => string;
   title: (dict: Dictionary) => string;
   summary: (dict: Dictionary) => string;
   description: (dict: Dictionary) => string;
@@ -17,7 +17,7 @@ export interface Experiment {
 export const experiments: Experiment[] = [
   {
     slug: "binary-search",
-    topic: "Algorithms · O(log n)",
+    topic: (dict) => dict.binarySearch.topic,
     title: (dict) => dict.binarySearch.title,
     summary: (dict) => dict.binarySearch.intro,
     description: (dict) => dict.binarySearch.description,

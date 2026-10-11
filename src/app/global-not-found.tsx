@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 /** 404 for URLs outside the locale tree (rendered without the site layout). */
 export default function GlobalNotFound() {
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="en" className={fontVariables} data-scroll-behavior="smooth">
       <body className="flex min-h-dvh flex-col bg-canvas text-ink">
         <main id="main-content" className="flex flex-1 flex-col">
           <NotFoundView dict={en} homeHref="/en" workHref="/en/work" />

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ExplorerLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="en" className={fontVariables} data-scroll-behavior="smooth">
       <body className="min-h-dvh bg-canvas text-ink">
         <MotionProvider>{children}</MotionProvider>
       </body>

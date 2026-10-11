@@ -36,3 +36,29 @@ test("Uzbek modifier letters render with the site font", async ({ page }) => {
   expect(covered.family).not.toMatch(/system-ui|sans-serif/);
   expect(covered.ok).toBe(true);
 });
+
+test("ʻ (U+02BB) is as narrow as ‘ in the display font (no gap in oʻ / gʻ)", async ({ page }) => {
+  await page.goto("/uz");
+  const result = await page.evaluate(async () => {
+    await document.fonts.ready;
+    const style = getComputedStyle(document.querySelector("h1")!);
+    // Chromium returns "" for the computed `font` shorthand; build it explicitly
+    // from the primary family only (next/font's local fallback face never loads).
+    const family = style.fontFamily.split(",")[0]!.trim();
+    const font = `${style.fontWeight} 200px ${family}`;
+    const context = document.createElement("canvas").getContext("2d")!;
+    context.font = font;
+    const width = (text: string) => context.measureText(text).width;
+    return {
+      fontLoaded: document.fonts.check(font, "Gʻo"),
+      family,
+      okina: width("Gʻo"),
+      quote: width("G\u2018o"),
+      bare: width("Go"),
+    };
+  });
+  expect(result.fontLoaded).toBe(true);
+  expect(result.family).not.toMatch(/^(system-ui|sans-serif)/);
+  expect(result.okina).toBeGreaterThan(result.bare); // the mark has width at all
+  expect(Math.abs(result.okina - result.quote)).toBeLessThan(1);
+});

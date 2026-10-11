@@ -150,6 +150,7 @@ export const uz: Dictionary = {
   },
   binarySearch: {
     title: "Ikkilik qidiruv qadamma-qadam",
+    topic: "Algoritmlar · O(log n)",
     description:
       "Ikkilik qidiruvning interaktiv vizualizatsiyasi: qiymatni tanlang va low, mid hamda high qanday harakatlanishini qadamma-qadam kuzating.",
     intro:

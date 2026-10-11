@@ -25,7 +25,7 @@ test("binary search reports a missing value via keyboard-only controls", async (
 
 test("typing an invalid target shows an accessible error", async ({ page }) => {
   await page.goto("/en/lab/binary-search");
-  const input = page.getByLabel("Target value");
+  const input = page.getByRole("textbox", { name: "Target value" });
   await input.fill("500");
   await expect(page.getByTestId("binary-search").getByRole("alert")).toHaveText("Enter a whole number from 1 to 99.");
   await expect(input).toHaveAttribute("aria-invalid", "true");

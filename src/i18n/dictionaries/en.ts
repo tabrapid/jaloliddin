@@ -148,6 +148,7 @@ export const en = {
   },
   binarySearch: {
     title: "Binary search, step by step",
+    topic: "Algorithms · O(log n)",
     description:
       "An interactive binary search visualizer: choose a target, then step through or play the search to see how low, mid and high move.",
     intro:

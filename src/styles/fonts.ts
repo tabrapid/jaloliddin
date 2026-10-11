@@ -6,7 +6,8 @@ import localFont from "next/font/local";
  * - Red Hat Mono: technical labels, metadata, code (variable 300–700).
  *
  * Both are self-hosted (SIL OFL 1.1, see ./fonts/OFL-*.txt) and include the
- * Uzbek Latin modifier letters ʻ (U+02BB) and ʼ (U+02BC).
+ * Uzbek Latin modifier letters ʻ (U+02BB) and ʼ (U+02BC). The Schibsted files
+ * are patched so ʻ uses the narrow quoteleft glyph (see ./fonts/README.md).
  */
 export const schibsted = localFont({
   src: [

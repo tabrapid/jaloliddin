@@ -46,7 +46,9 @@ The WebGL scene reads `--accent`, `--accent-glow`, `--accent-deep` and `--ink` a
 | `text-label` | 0.75rem mono, uppercase, +0.08em | Labels, metadata, indexes |
 
 Families come from `src/styles/fonts.ts` (`--font-schibsted`, `--font-redhat-mono`), both
-self-hosted woff2 under SIL OFL. Display sizes carry built-in negative tracking. Headings use
+self-hosted woff2 under SIL OFL. Schibsted Grotesk’s own ʻ (U+02BB) glyph is half an em wide,
+so the files are patched to use its narrow `quoteleft` glyph instead
+(`scripts/patch-uzbek-okina.py`, documented in `src/styles/fonts/README.md`). Display sizes carry built-in negative tracking. Headings use
 `text-wrap: balance` and paragraphs `pretty`.
 
 ### Spacing, radius, elevation
