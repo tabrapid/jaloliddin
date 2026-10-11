@@ -30,3 +30,21 @@ test("typing an invalid target shows an accessible error", async ({ page }) => {
   await expect(page.getByTestId("binary-search").getByRole("alert")).toHaveText("Enter a whole number from 1 to 99.");
   await expect(input).toHaveAttribute("aria-invalid", "true");
 });
+
+test("the controls stay in place while stepping through a search", async ({ page }) => {
+  await page.goto("/en/lab/binary-search");
+  const next = page.getByTestId("next-step");
+  const pageY = async () => {
+    const box = await next.boundingBox();
+    return Math.round((box?.y ?? 0) + (await page.evaluate(() => window.scrollY)));
+  };
+  for (const pick of [null, "pick-missing"] as const) {
+    if (pick) await page.getByTestId(pick).click();
+    const positions = [await pageY()];
+    for (let i = 0; i < 8 && (await next.getAttribute("aria-disabled")) !== "true"; i++) {
+      await next.click();
+      positions.push(await pageY());
+    }
+    expect(new Set(positions).size, `button y per step: ${positions.join(", ")}`).toBe(1);
+  }
+});

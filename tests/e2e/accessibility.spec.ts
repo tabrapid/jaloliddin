@@ -82,3 +82,12 @@ test("client-side navigation lands at the top of the new page", async ({ page })
   await page.waitForTimeout(800);
   expect(await scrollY()).toBe(0);
 });
+
+test("the hero pause control sits fully inside the viewport", async ({ page }) => {
+  await page.goto("/en");
+  const box = await page.getByTestId("scene-toggle").boundingBox();
+  const width = page.viewportSize()!.width;
+  expect(box).not.toBeNull();
+  expect(box!.x).toBeGreaterThanOrEqual(0);
+  expect(box!.x + box!.width).toBeLessThanOrEqual(width - 8);
+});

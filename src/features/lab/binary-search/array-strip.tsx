@@ -59,7 +59,9 @@ export function ArrayStrip({ array, step, labels, compact = false, className }: 
     offsets.set(pointer.index, row + 1);
     return { ...pointer, row };
   });
-  const rows = Math.max(1, ...offsets.values());
+  // The interactive view always reserves three label rows (low, mid and high can
+  // share one cell), so the layout below never shifts while stepping.
+  const rows = compact ? Math.max(1, ...offsets.values()) : 3;
 
   return (
     <div className={cn("w-full", className)}>

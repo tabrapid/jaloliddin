@@ -69,12 +69,23 @@ regression test, and each test was first confirmed to fail on the old build.
 - **English text on Uzbek pages.** The Lab topic is now localized, and the visualizer
   caption uses the localized “Target value” label (low/mid/high remain code tokens).
 
-Demo media (videos, GIFs, gallery) is produced in `screenshots/demo/`, which is gitignored.
+A second recorded review found three small layout issues, now fixed and covered by tests that
+fail on the previous build:
+
+- On phones, the hero pause button extended about 2 px past the right edge. The art box no
+  longer bleeds off-screen.
+- The Lab controls jumped down when low/mid/high stacked on one cell or when the result
+  banner appeared. The controls now sit directly under the array, and the interactive strip
+  always reserves three pointer rows.
+
+Demo media (videos, GIFs, gallery) is produced in `screenshots/demo/`, which is gitignored. It
+was recorded before this second set of Lab/hero fixes, so it shows the older Lab layout with
+controls below the narration.
 
 ### Verification (this environment: Linux container, Node 22, headless Chromium 141 via Playwright 1.56)
 
 - `pnpm check` (typecheck, lint, 57 Vitest tests, production build): passing.
-- `pnpm test:e2e`: 66 passed, 8 skipped by design (each desktop-only or mobile-only check is skipped in the other project).
+- `pnpm test:e2e`: 70 passed, 8 skipped by design (each desktop-only or mobile-only check is skipped in the other project).
   Covers routes, internal-link crawl, 404s, explorer absent in production, SEO files, language
   switching and memory, Uzbek glyph coverage, skip link, mobile-menu focus trap, aria-current,
   touch targets, overflow, the Lab (play / keyboard / validation), reduced motion, WebGL init

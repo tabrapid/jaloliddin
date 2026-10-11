@@ -180,6 +180,42 @@ function Player({ labels, trace }: PlayerProps) {
         </ul>
       </div>
 
+      <div role="toolbar" aria-label={labels.controls} className="flex flex-wrap items-center gap-2">
+        <Button onClick={() => dispatch({ type: "toggle" })} data-testid="play-toggle" className="min-w-32">
+          {state.playing ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
+          {state.playing ? labels.pause : labels.play}
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => dispatch({ type: "previous" })}
+          aria-disabled={state.index === 0}
+          aria-keyshortcuts="ArrowLeft"
+          data-testid="previous-step"
+        >
+          <StepBackIcon size={16} />
+          {labels.previous}
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => dispatch({ type: "next" })}
+          aria-disabled={atEnd}
+          aria-keyshortcuts="ArrowRight"
+          data-testid="next-step"
+        >
+          {labels.next}
+          <StepForwardIcon size={16} />
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={() => dispatch({ type: "reset" })}
+          aria-disabled={state.index === 0 && !state.playing}
+          data-testid="reset"
+        >
+          <ResetIcon size={16} />
+          {labels.reset}
+        </Button>
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="flex flex-col gap-5">
           <p
@@ -229,41 +265,6 @@ function Player({ labels, trace }: PlayerProps) {
         </dl>
       </div>
 
-      <div role="toolbar" aria-label={labels.controls} className="flex flex-wrap items-center gap-2 border-t border-line pt-6">
-        <Button onClick={() => dispatch({ type: "toggle" })} data-testid="play-toggle" className="min-w-32">
-          {state.playing ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
-          {state.playing ? labels.pause : labels.play}
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => dispatch({ type: "previous" })}
-          aria-disabled={state.index === 0}
-          aria-keyshortcuts="ArrowLeft"
-          data-testid="previous-step"
-        >
-          <StepBackIcon size={16} />
-          {labels.previous}
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => dispatch({ type: "next" })}
-          aria-disabled={atEnd}
-          aria-keyshortcuts="ArrowRight"
-          data-testid="next-step"
-        >
-          {labels.next}
-          <StepForwardIcon size={16} />
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={() => dispatch({ type: "reset" })}
-          aria-disabled={state.index === 0 && !state.playing}
-          data-testid="reset"
-        >
-          <ResetIcon size={16} />
-          {labels.reset}
-        </Button>
-      </div>
     </div>
   );
 }

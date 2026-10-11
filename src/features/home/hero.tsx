@@ -26,7 +26,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     <section aria-labelledby="hero-title" className="atmosphere relative isolate overflow-hidden">
       <div className="relative mx-auto max-w-site px-gutter">
         <div
-          className="absolute top-4 right-[calc(var(--space-gutter)*-0.5)] z-0 aspect-[5/6] w-[min(82vw,24rem)] sm:right-0 sm:w-[min(64vw,26rem)] md:top-6 md:w-[min(50vw,32rem)] lg:top-6 lg:right-[calc(var(--space-gutter)*0.5)] lg:bottom-6 lg:aspect-auto lg:w-[min(40%,38rem)]"
+          className="absolute top-4 right-0 z-0 aspect-[5/6] w-[min(82vw,24rem)] sm:w-[min(64vw,26rem)] md:top-6 md:w-[min(50vw,32rem)] lg:top-6 lg:right-[calc(var(--space-gutter)*0.5)] lg:bottom-6 lg:aspect-auto lg:w-[min(40%,38rem)]"
           data-testid="hero-art"
         >
           <Rosette
