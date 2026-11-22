@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { MediaFrame } from "@/features/portfolio/media-frame";
+import { SystemIllustration } from "@/features/portfolio/system-illustration";
 import { LocaleLink } from "@/features/site/locale-link";
 import { getDictionary } from "@/i18n/dictionaries";
 import { hasLocale, locales } from "@/i18n/config";
+import { getProject } from "@/lib/projects";
 import { pageMetadata } from "@/lib/seo";
 
 const copy = {
@@ -19,6 +22,8 @@ const copy = {
     project: "A project with a human purpose",
     projectBody:
       "Bloodchain is being designed to connect donors, healthcare institutions, and blood services through clearer donation workflows, donor discovery, and emergency coordination. The project is being developed with the needs and realities of Uzbekistan in mind.",
+    workflows: "How a donation would be coordinated",
+    statusLabel: "Project status",
     result: "First Degree Diploma · Medical track",
     back: "Explore Bloodchain",
   },
@@ -34,6 +39,8 @@ const copy = {
     project: "Insonlar uchun yaratilayotgan loyiha",
     projectBody:
       "Bloodchain donorlar, tibbiyot muassasalari va qon xizmatlarini donorlik jarayonlari, donorlarni topish hamda favqulodda vaziyatlarda muvofiqlashtirish orqali bog‘lashni maqsad qiladi. Loyiha O‘zbekiston sharoitlari va ehtiyojlarini hisobga olgan holda ishlab chiqilmoqda.",
+    workflows: "Qon topshirish qanday tashkil etiladi",
+    statusLabel: "Loyiha holati",
     result: "I darajali diplom · Tibbiyot yo‘nalishi",
     back: "Bloodchain loyihasini ko‘rish",
   },
@@ -66,6 +73,9 @@ export default async function NaukaAwardPage({
   if (!hasLocale(lang)) notFound();
   const text = copy[lang];
   const dict = await getDictionary(lang);
+  const project = getProject("bloodchain", lang);
+  if (!project) notFound();
+  const donorWorkflows = project.workflows.filter(({ id }) => id === "book" || id === "respond");
 
   return (
     <article className="mx-auto w-full max-w-6xl px-5 pb-24 pt-16 sm:px-8 sm:pt-24">
@@ -94,12 +104,38 @@ export default async function NaukaAwardPage({
         <h2 className="text-2xl font-semibold">{text.project}</h2>
         <div>
           <p className="text-base leading-8 text-ink-2">{text.projectBody}</p>
+          <p className="mt-4 text-base leading-8 text-ink-2">{project.problem}</p>
+          <dl className="mt-4 flex flex-wrap gap-x-2 text-sm text-ink-2">
+            <dt className="font-semibold text-ink">{text.statusLabel}</dt>
+            <dd>{dict.project.statusLabels[project.status]}</dd>
+          </dl>
           <LocaleLink locale={lang} className="mt-6 inline-flex rounded-full border border-line-strong px-5 py-3 text-sm font-medium transition hover:bg-surface" href="/work/bloodchain">
             {text.back} ↗
           </LocaleLink>
         </div>
       </section>
 
+      {project.media.kind === "diagram" && (
+        <div className="mt-10">
+          <MediaFrame label={dict.project.illustrationLabel} caption={project.media.caption} ratio="16/10">
+            <SystemIllustration project={project} tierLabels={dict.project.diagram} />
+          </MediaFrame>
+        </div>
+      )}
+
+      <section className="mt-12 border-t border-line pt-12" aria-labelledby="donation-workflows">
+        <h2 id="donation-workflows" className="text-2xl font-semibold">{text.workflows}</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {donorWorkflows.map(({ id, title, steps }) => (
+            <div key={id} className="rounded-lg border border-line bg-surface p-6">
+              <h3 className="text-lg font-semibold">{title}</h3>
+              <ol className="mt-4 list-decimal space-y-2 pl-5 text-ink-2">
+                {steps.map((step) => <li key={step}>{step}</li>)}
+              </ol>
+            </div>
+          ))}
+        </div>
+      </section>
     </article>
   );
 }
