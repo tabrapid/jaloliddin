@@ -202,8 +202,9 @@ export const uz: Dictionary = {
   },
   writingPage: {
     title: "Maqolalar",
-    description: "Jaloliddinning algoritmlar, tizimlar va davom etayotgan loyihalar haqidagi yozuvlari.",
-    lead: "Oʻrganayotgan va yaratayotgan narsalarim haqida yozuvlar.",
+    description: "Jaloliddinning algoritmlar, tizimlar, loyihalar va yutuqlar haqidagi yozuvlari.",
+    lead: "Oʻrganayotgan mavzularim, loyihalarim va yutuqlarim haqida.",
+    achievements: "Yutuqlar",
     emptyTitle: "Hozircha maqolalar yoʻq",
     emptyBody:
       "Algoritmlar, tizimlar yoki ustida ishlayotgan loyihalarim haqida yozganimda, ular shu yerda paydo boʻladi.",

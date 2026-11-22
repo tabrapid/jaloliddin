@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { milestones } from "@/content/milestones";
 import { absoluteUrl } from "@/config/site";
 import { experiments } from "@/features/lab/registry";
 import { getArticles } from "@/features/writing/articles";
@@ -34,6 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...entry("/lab", 0.6),
     ...experiments.flatMap((experiment) => entry(`/lab/${experiment.slug}`, 0.6)),
     ...entry("/writing", 0.5),
+    ...milestones.flatMap(({ href, category }) => href && category ? entry(href, 0.5) : []),
     ...[...articleLocales].flatMap(([slug, available]) => entry(`/writing/${slug}`, 0.5, available)),
     ...entry("/contact", 0.5),
   ];
