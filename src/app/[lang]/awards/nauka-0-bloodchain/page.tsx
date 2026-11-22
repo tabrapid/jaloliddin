@@ -14,6 +14,12 @@ const festivalReport = "https://festivalnauki.ru/news/189916/";
 const festivalAttendance = "https://festivalnauki.ru/news/189923/";
 const festivalProgram = "https://festivalnauki.uz/";
 
+const festivalPhotos = [
+  { file: "award-ceremony.webp", width: 1350, height: 1800 },
+  { file: "medals-and-diplomas.webp", width: 1800, height: 1350 },
+  { file: "festival-group.webp", width: 1800, height: 1350 },
+] as const;
+
 const copy = {
   en: {
     eyebrow: "Nauka 0+ · 2026",
@@ -39,6 +45,12 @@ const copy = {
     ],
     nextRound: "The official calendar schedules a remote superfinal for 15 December 2026.",
     certificate: "Remote-round certificate for Jaloliddin Abdug‘aniyev’s Bloodchain project",
+    gallery: "Photos from the award ceremony",
+    photoCaptions: {
+      "award-ceremony.webp": "On stage during the NAUKA 0+ awards ceremony.",
+      "medals-and-diplomas.webp": "Award recipients with their medals and diplomas in front of the festival backdrop.",
+      "festival-group.webp": "A group photo with the award recipients after the ceremony.",
+    },
     sources: "Official sources",
     sourceLabels: ["Competition calendar", "Festival programme", "Finalist list and final schedule", "Final report", "Scientific jury results", "Science week attendance"],
     project: "A project with a human purpose",
@@ -73,6 +85,12 @@ const copy = {
     ],
     nextRound: "Rasmiy taqvimda masofaviy superfinal 2026-yil 15-dekabrga belgilangan.",
     certificate: "Jaloliddin Abdug‘aniyevning Bloodchain loyihasi uchun masofaviy bosqich sertifikati",
+    gallery: "Taqdirlash marosimidan suratlar",
+    photoCaptions: {
+      "award-ceremony.webp": "NAUKA 0+ festivalining taqdirlash marosimi sahnasida.",
+      "medals-and-diplomas.webp": "Mukofotlangan ishtirokchilar festival fonida medal va diplomlari bilan.",
+      "festival-group.webp": "Marosimdan keyin mukofotlangan ishtirokchilar bilan guruh surati.",
+    },
     sources: "Rasmiy manbalar",
     sourceLabels: ["Tanlov taqvimi", "Festival dasturi", "Finalchilar ro‘yxati va final dasturi", "Final hisoboti", "Ilmiy hakamlar hay’ati natijalari", "Fan haftaligi qatnashuvi"],
     project: "Insonlar uchun yaratilayotgan loyiha",
@@ -179,6 +197,24 @@ export default async function NaukaAwardPage({
           </figure>
         </div>
         <p className="mt-6 leading-7 text-ink-2">{text.nextRound}</p>
+      </section>
+
+      <section className="mt-12 border-t border-line pt-12" aria-labelledby="festival-photos">
+        <h2 id="festival-photos" className="text-2xl font-semibold">{text.gallery}</h2>
+        <div className="mt-6 grid items-start gap-5 md:grid-cols-2">
+          {festivalPhotos.map(({ file, width, height }, index) => {
+            const src = `/images/awards/nauka-0-2026/${file}`;
+            const caption = text.photoCaptions[file];
+            return (
+              <figure key={file} className={`overflow-hidden rounded-lg border border-line bg-surface ${index === 0 ? "md:row-span-2" : ""}`}>
+                <a href={src} className="block focus-visible:outline-2 focus-visible:outline-offset-[-2px]">
+                  <Image src={src} alt={caption} width={width} height={height} sizes="(min-width: 768px) 50vw, 95vw" className="h-auto w-full" />
+                </a>
+                <figcaption className="px-4 py-3 text-sm text-ink-2">{caption}</figcaption>
+              </figure>
+            );
+          })}
+        </div>
       </section>
 
       <section className="mt-12 grid gap-10 border-t border-line pt-12 md:grid-cols-[0.7fr_1.3fr]">
