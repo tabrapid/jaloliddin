@@ -200,8 +200,9 @@ export const en = {
   },
   writingPage: {
     title: "Writing",
-    description: "Notes by Jaloliddin on algorithms, systems and ongoing projects.",
-    lead: "Notes on what I’m learning and building.",
+    description: "Jaloliddin’s notes on algorithms, systems and projects, alongside achievements.",
+    lead: "Notes on what I’m learning and building, and milestones along the way.",
+    achievements: "Achievements",
     emptyTitle: "No articles yet",
     emptyBody:
       "When I publish notes on algorithms, systems or the projects I’m building, they will appear here.",
